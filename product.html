@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Product Details - Shop Smart | Buy Quality Products Online in India</title>
+    <meta name="description" content="View detailed product information on Shop Smart. Get specifications, prices, and add products to cart for quick checkout.">
+    <meta name="keywords" content="product details, buy online, shop smart, product specifications, best deals, quality products">
+    <meta name="author" content="Shop Smart Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="nav-left">
+                <div class="logo">
+                    <a href="index.html">Shop Smart</a>
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search for products...">
+                    <button class="search-btn">Search</button>
+                    <div id="search-suggestions" class="search-suggestions"></div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <a href="cart.html" class="cart-icon">
+                    <span class="cart-text">Cart</span>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                <div class="account-dropdown">
+                    <a href="#" class="account-link" id="account-link">Account</a>
+                    <div class="account-menu" id="account-menu">
+                        <a href="login.html">Login</a>
+                        <a href="signup.html">Sign Up</a>
+                        <a href="#" id="logout-link" style="display: none;">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Details Section -->
+    <main class="product-details-page">
+        <div class="container">
+            <div class="product-details">
+                <div class="product-images">
+                    <div class="main-image">
+                        <img src="https://via.placeholder.com/500x500/4a90e2/ffffff?text=Product+Image" alt="Shop Smart - Product Image" id="main-product-image" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="product-info">
+                    <h1 id="product-title">Sample Product</h1>
+                    <p class="product-rating">⭐⭐⭐⭐⭐ 4.5 (120 reviews)</p>
+                    <p class="product-price" id="product-price">$99.99</p>
+                    <p class="product-description" id="product-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                    
+                    <div class="product-options">
+                        <label for="quantity">Quantity:</label>
+                        <select id="quantity" class="quantity-select">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-add-cart" id="add-to-cart-btn">Add to Cart</button>
+                        <button class="btn-buy-now">Buy Now</button>
+                    </div>
+                    
+                    <div class="product-specs">
+                        <h3>Product Specifications</h3>
+                        <ul id="product-specs">
+                            <li>Brand: Shop Smart</li>
+                            <li>Model: SPA-2024</li>
+                            <li>Weight: 0.5 kg</li>
+                            <li>Dimensions: 10 x 10 x 5 cm</li>
+                            <li>Warranty: 1 Year</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products Section -->
+        <section class="related-products-section">
+            <div class="container">
+                <h2 class="section-title">Related Products</h2>
+                <div class="products-grid" id="related-products-grid">
+                    <!-- Related products will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Shop Smart is an Indian e-commerce platform offering a wide range of products in electronics, fashion, and home furniture at affordable prices.</p>
+                    <div class="contact-info">
+                        <p><strong>Email:</strong> support@shopsmart.in</p>
+                        <p><strong>Phone:</strong> +91-9876543210</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="electronics.html">Electronics</a></li>
+                        <li><a href="fashion.html">Fashion</a></li>
+                        <li><a href="home.html">Home Decor</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/shop_smart12/" target="_blank" aria-label="Instagram">
+                            <span class="social-icon">📷</span> Instagram
+                        </a>
+                        <a href="https://x.com/shop_smart12" target="_blank" aria-label="Twitter">
+                            <span class="social-icon">🐦</span> Twitter
+                        </a>
+                    </div>
+                    <h4 style="margin-top: 20px;">Trending Searches</h4>
+                    <div id="trending-searches" class="trending-searches">
+                        <!-- AI Keywords will be inserted here -->
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="electronics.html">Electronics</a></li>
+                        <li><a href="fashion.html">Fashion</a></li>
+                        <li><a href="home.html">Home & Garden</a></li>
+                        <!-- <li><a href="analytics.html">Analytics Dashboard</a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shop Smart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/ai-keywords.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
