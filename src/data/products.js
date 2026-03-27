@@ -1,0 +1,121 @@
+const p = (id, cat, name, price, orig, rating, rev, badge, desc, img) =>
+    ({ id, cat, name, price, orig, rating, rev, badge, desc, img })
+const u = (id) => `https://images.unsplash.com/photo-${id}?w=500&h=500&fit=crop`
+export const toSlug = (name) =>
+    name.toLowerCase().replace(/[''"]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+export const CATEGORY_META = {
+    electronics: { name: 'Electronics', icon: '📱', desc: 'Phones, Laptops, TVs & More', path: '/electronics' },
+    fashion: { name: 'Fashion', icon: '👔', desc: 'Clothing, Shoes & Accessories', path: '/fashion' },
+    home: { name: 'Home & Living', icon: '🏠', desc: 'Furniture, Decor & Kitchen', path: '/home' },
+    sports: { name: 'Sports', icon: '⚽', desc: 'Equipment & Sportswear', path: '/sports' },
+    beauty: { name: 'Beauty', icon: '💄', desc: 'Skincare, Makeup & Fragrances', path: '/beauty' },
+    books: { name: 'Books', icon: '📚', desc: 'Bestsellers, Self-Help & More', path: '/books' },
+}
+export const products = [
+    p(1, 'electronics', 'Samsung Galaxy S24 Ultra', 124999, 139999, 4.8, 12840, 'Best Seller', '200MP camera, 5000mAh, Snapdragon 8 Gen 3, built-in S-Pen.', 'https://m.media-amazon.com/images/I/717Q2swzhBL._AC_UF1000,1000_QL80_.jpg'),
+    p(2, 'electronics', 'Apple MacBook Air M3', 114900, 129900, 4.9, 8960, 'Hot', 'M3 chip, 15" Liquid Retina display, 18-hour battery, fanless.', 'https://m.media-amazon.com/images/I/71vFKBpKakL._AC_UF1000,1000_QL80_.jpg'),
+    p(3, 'electronics', 'Sony WH-1000XM5 Headphones', 26990, 34990, 4.7, 22310, 'Sale', 'Industry-leading ANC, 30-hour battery, crystal-clear calls.', 'https://m.media-amazon.com/images/I/61BGLYEN-xL._SY879_.jpg'),
+    p(4, 'electronics', 'LG 55" 4K OLED TV', 89990, 119990, 4.6, 4521, 'Sale', 'α9 AI Processor, Dolby Vision IQ, HDMI 2.1, G-Sync for gaming.', 'https://m.media-amazon.com/images/I/41cIi2cV2yL._SX300_SY300_QL70_FMwebp_.jpg'),
+    p(5, 'electronics', 'Apple iPad Pro 12.9"', 109900, 119900, 4.8, 6832, 'New', 'M2 chip, ProMotion XDR display, Thunderbolt port, WiFi 6E.', 'http://rukmini1.flixcart.com/image/1500/1500/xif0q/tablet/a/c/j/-original-imagj73y2pvmtsxg.jpeg?q=70'),
+    p(6, 'electronics', 'OnePlus 12R', 39999, 44999, 4.5, 9120, 'Hot', 'Snapdragon 8 Gen 2, 100W SUPERVOOC, 6.78" AMOLED, 50MP camera.', 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTJLn4yhDVtSpnsz8yPP2DfUAyv4oyOKXECNcHfeGCpRGWIS_kmG7g99zWfvqVANVQEcIOwU1jNRQLhHZ0igfToC733qUVqtzRGFtHRKzgtBMMTSSnYAe6x'),
+    p(7, 'electronics', 'Canon EOS R50 Mirrorless', 62990, 74990, 4.7, 3842, 'New', '24.2MP APS-C sensor, 4K video, Dual Pixel CMOS AF.', 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS26T8keVI6KRY_L2_kD6rrTLI_pZu56Q4LMIu_bBm_0yZpKM5TuaBeP1aWe6a9VuuWK6OQGTzPbOCEdTNiyFHkB6eoNqMSVO_Eue5vPvLBjiJp3sUfTWZE'),
+    p(8, 'electronics', 'Dell XPS 15 Laptop', 119999, 134999, 4.6, 5610, 'Best Seller', 'Intel Core i9, 32GB RAM, 1TB SSD, RTX 4060, 15.6" OLED.', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSPzJ5Dxg5AOTHxCuqAHHOM_1KaB3ShWbLX4hsYfFxsrXo81WNHs8ae5gU_vBVh_F4R_wDlUO8CTn7ntaaSvzUhUH4FR9mrrkOuKLvjOjuDd7vOII8RDRne'),
+    p(9, 'electronics', 'Apple Watch Series 9', 41900, 45900, 4.8, 7231, 'Best Seller', 'S9 chip, Double Tap, Always-On Retina, ECG & SpO2 sensor.', 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSuWu8-tPYgq9ZCSHZi5r2jPA4l4N3N2lQSwBhtKLGWUxhDmt7vMmXq8QPmUjTjUZw4702vKdRRqb7O6O8hVxYGDyd4lx9HBSkZfX1ynzk'),
+    p(10, 'electronics', 'JBL Charge 5 Speaker', 14999, 17999, 4.5, 15420, 'Sale', '30W output, IP67 waterproof, 20-hour battery, PartyBoost.', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRkYa82FBn8C5xLgxVEMOwLympS-qKHRYlsNeXv9sMEb-eUxJg4S86SMOszaABHx5SF9C7XOVfWf-EBKNn_kBoEJZ-kiz0J0nnekI0Ig5HEobyBvVpw1GL7Bg'),
+    p(11, 'electronics', 'Sony PlayStation 5', 54990, 59990, 4.9, 18430, 'Best Seller', 'Custom AMD GPU, 825GB SSD, DualSense controller, 4K ray-tracing.', 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRefUUUibgkZzWkDNbdPtO9pPkYtQULKkuK2UIXWqcItrwenfRtg4oAHhNg_HQDjORHRvqn4lMejFAjU5EhZri6-az3gqeKyZ2xQdz9tPiuwnNxGbWlA_9w1g'),
+    p(12, 'electronics', 'Bose QuietComfort Earbuds II', 24990, 29990, 4.7, 8760, 'Sale', 'CustomTune noise cancellation, 6-hour battery, IPX4 rated.', 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR6djZ_xpG5PLYvARr-_lN77YwOvfJXrUkuIjudqay4ncaIK78E50gMoX4Mne1hI_RBQmfdnq4cfgWebu3yBuH_ZRtmc6iBS0BnD_hhdPFdnhDRaRXKDsBpSw'),
+    p(13, 'electronics', 'Samsung 27" 4K Gaming Monitor', 34999, 44999, 4.6, 3210, 'New', 'UHD IPS, 144Hz, 1ms response, HDR400, FreeSync Premium.', 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS882r6lPC2lXrxyjO-z3GxhP9I8HNJg4JB5Supdihy1smWfOqzf_yrSoXgsy_7F_vs6f_LfrAYGj5u4CEK5MDKl2VufGmWsQnLjH5MttDuuHBDlIWkPBqr1w'),
+    p(14, 'electronics', 'Lenovo ThinkPad X1 Carbon', 134999, 149999, 4.7, 4120, 'Hot', 'Intel Core i7, 16GB RAM, 512GB SSD, 14" IPS, military-grade.', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSxtlF6YCwgZJCp1cwd6JwomJciq_uLTXu1Rriggugy_FzRvX1vKbZ3puurlU1_ZNyAMTZVGIEsEjBQ75NSRPo_e5O0bnt_qx0P4X0gI-qsXBMrVQI4rvjJVA'),
+    p(15, 'electronics', 'DJI Mini 4 Pro Drone', 74999, 84999, 4.8, 2890, 'New', '4K/60fps, 48MP, omnidirectional sensing, 34-min flight time.', 'https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTV2CufaggcVz3a34Sin6mWQ0Iavf2bcSBfetQqjzJ74TCtQcnee1RjSAjI_6xUWpoNFayz-XDT10otIWBT6LeNfzVjZWAV9ssFv8_99DByzMhk9xsM-lPoiUY'),
+    p(16, 'electronics', 'iPad Mini 6', 52900, 59900, 4.6, 5430, 'Sale', '8.3" Liquid Retina, A15 Bionic, USB-C, 5G, Center Stage.', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRnVzuVPiIEvK4WlhdMw3Tgkw6dFtq1DG2AbmYxh0GMi7FRLM-OPodNtvuAQ_Ps2WT8Mm7Ut4s9Ijp0HpS8f3Dkk33mmBlW_hASjyefeMDE8Q9qL9bxbMbd'),
+    p(17, 'electronics', 'GoPro HERO12 Black', 44990, 49990, 4.7, 6210, 'Hot', '5.3K video, HyperSmooth 6.0, 10m waterproof, HDR photo.', 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT3-CkWyXNrAteitiEIRKnrvkVk9X1pTXiWYKBUPpS6_gkVNK_8gD2IS8heLu_FHRSuNNvCTTgCL3Ym8yh8z4jWzpv-UpR0Z4WrFu5-7QPw3CD22VzA88DonOs'),
+    p(18, 'electronics', 'Amazon Echo Show 10', 21999, 26999, 4.4, 9870, 'Sale', '10.1" HD display, auto-rotate, Zigbee hub, built-in Alexa.', 'https://sell.gameloot.in/wp-content/uploads/sites/4/2021/07/Amazon-Echo-show-10.jpg'),
+    p(19, 'electronics', 'Google Pixel 8 Pro', 89999, 99999, 4.7, 6512, 'Hot', 'Tensor G3, 50MP triple camera, 7-year OS support, AI features.', 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSI0bU_1QrS-5B8-XkgrDBBRf_e8Y1YZX0CWGQ8uW4WpRUE9cr3pIjlxmGHte3jn3HtTeHSDG5poj2MyWn-Jw9l6Ms5nbEk'),
+    p(20, 'electronics', 'Xiaomi 13 Ultra', 89999, 99999, 4.6, 7230, 'New', 'Leica quad camera, Snapdragon 8 Gen 2, 90W charging, 5000mAh.', 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQAU3ghdxVuTUXK0hC0QmwKM4T32HztVJ1eBFnEDdGIXy70cdSZm_ntuts_Fw2lPtGRFdJymf8-3lucTTwUR-hViluqWYKA'),
+    p(21, 'fashion', "Levi's 511 Slim Fit Jeans", 3999, 5999, 4.6, 18920, 'Best Seller', 'Classic slim fit, 5-pocket styling, all-day stretch comfort.', 'https://m.media-amazon.com/images/I/81l3rZK4lnL._AC_UX679_.jpg'),
+    p(22, 'fashion', 'Nike Air Max 270', 12995, 14995, 4.7, 24130, 'Hot', 'Max Air heel unit, breathable mesh upper, all-day foam cushion.', 'https://m.media-amazon.com/images/I/71W8e2u6xwL._AC_UX695_.jpg'),
+    p(23, 'fashion', 'Ray-Ban Aviator Sunglasses', 8990, 11990, 4.8, 9821, 'Sale', 'Classic G-15 lenses, gold metal frame, UV400 sun protection.', 'https://m.media-amazon.com/images/I/61z4K9G0QPL._AC_UX679_.jpg'),
+    p(24, 'fashion', 'Allen Solly Formal Shirt', 1999, 2999, 4.4, 11240, 'Sale', 'Premium cotton blend, slim fit, wrinkle-resistant, office ready.', 'https://m.media-amazon.com/images/I/81zC+9ZbKCL._AC_UX679_.jpg'),
+    p(25, 'fashion', 'Adidas Ultraboost 23', 14999, 17999, 4.8, 8730, 'New', 'BOOST midsole, Primeknit upper, 50% recycled material.', 'https://m.media-amazon.com/images/I/71Q9hK2YxwL._AC_UX695_.jpg'),
+    p(26, 'fashion', 'Zara Floral Midi Dress', 3499, 4999, 4.6, 6540, 'New', 'Floral print, midi length, V-neckline, flared skirt, summer.', 'https://m.media-amazon.com/images/I/71Vn9Y3FQPL._AC_UX679_.jpg'),
+    p(27, 'fashion', 'Fossil Chronograph Watch', 12995, 16995, 4.7, 4231, 'Hot', 'Stainless steel case, leather strap, chronograph, 50m resistant.', 'https://m.media-amazon.com/images/I/81eYgP1q8UL._AC_UL1500_.jpg'),
+    p(28, 'fashion', 'Baggit Women Handbag', 2499, 3499, 4.3, 7810, 'Sale', 'PU leather, multiple compartments, zipper closure, stylish.', 'https://m.media-amazon.com/images/I/71G9lZ9l4ML._AC_UL1500_.jpg'),
+    p(29, 'fashion', 'Peter England Chinos', 2299, 2999, 4.4, 9230, 'Best Seller', 'Slim fit, cotton twill fabric, stretch comfort, formal-casual.', 'https://m.media-amazon.com/images/I/71n9uZKZxKL._AC_UX679_.jpg'),
+    p(30, 'fashion', 'Tommy Hilfiger Polo T-Shirt', 3499, 4499, 4.6, 12840, 'Sale', '100% cotton piqué, classic collar, signature flag embroidery.', 'https://m.media-amazon.com/images/I/71sG1zQxRXL._AC_UX679_.jpg'),
+    p(31, 'fashion', 'Puma Sports Backpack 28L', 1999, 2999, 4.5, 8420, 'Sale', '28L capacity, padded laptop sleeve, ventilated back panel.', 'https://m.media-amazon.com/images/I/81lP9G9g3hL._AC_UL1500_.jpg'),
+    p(32, 'fashion', 'US Polo Assn Sweatshirt', 2799, 3999, 4.5, 6310, 'New', 'Fleece interior, relaxed fit, kangaroo pocket, ribbed cuffs.', 'https://m.media-amazon.com/images/I/71jK6f+Z9JL._AC_UX679_.jpg'),
+    p(33, 'fashion', 'Nike Dri-FIT Training T-Shirt', 1995, 2495, 4.6, 14520, 'Best Seller', 'Dri-FIT sweat-wicking, reflective detail, recycled polyester.', 'https://m.media-amazon.com/images/I/71WkDp--uqL._AC_UX679_.jpg'),
+    p(34, 'fashion', 'Titan Raga Ladies Watch', 7995, 9995, 4.7, 5610, 'Hot', 'Rose gold case, mesh bracelet, sapphire crystal glass, 30m WR.', 'https://m.media-amazon.com/images/I/81a6z6W9kAL._AC_UL1500_.jpg'),
+    p(35, 'fashion', 'Woodland Leather Sneakers', 4499, 5999, 4.4, 7830, 'Sale', 'Genuine leather upper, rubber sole, cushioned insole, durable.', 'https://m.media-amazon.com/images/I/71Pz7+zXoAL._AC_UX695_.jpg'),
+    p(36, 'fashion', 'FabIndia Cotton Kurta Set', 2499, 3299, 4.6, 9120, 'New', 'Pure cotton, block print, straight cut, includes matching pyjama.', 'https://m.media-amazon.com/images/I/71lVbP3fRDL._AC_UX679_.jpg'),
+    p(37, 'fashion', 'Mango Structured Blazer', 5999, 7999, 4.5, 4230, 'Hot', 'Structured silhouette, button front, lightly padded shoulders.', 'https://m.media-amazon.com/images/I/71y1vR7x4bL._AC_UX679_.jpg'),
+    p(38, 'fashion', 'Park Avenue Belt & Wallet Combo', 1499, 1999, 4.3, 5640, 'Sale', 'Genuine leather, reversible belt, bifold wallet, multi card slots.', 'https://m.media-amazon.com/images/I/81k3x6mZPQL._AC_UL1500_.jpg'),
+    p(39, 'home', 'IKEA MALM Bed Frame Queen', 24999, 29999, 4.5, 7830, 'Best Seller', 'Solid pine, built-in storage compartments, smooth drawer slide.', 'https://m.media-amazon.com/images/I/71nF5Z3Z8KL._AC_SL1500_.jpg'),
+    p(40, 'home', 'Prestige Induction Cooktop 1600W', 2999, 3999, 4.6, 19240, 'Hot', '1600W, 6 preset menus, digital display, auto shut-off, child lock.', 'https://m.media-amazon.com/images/I/71cQZ9Z9vDL._AC_SL1500_.jpg'),
+    p(41, 'home', 'Philips LED Floor Lamp', 4499, 5999, 4.3, 4320, 'New', '12W warm white, 360° adjustable head, touch dimmer, energy-saving.', 'https://m.media-amazon.com/images/I/61KpP6Z9J1L._AC_SL1500_.jpg'),
+    p(42, 'home', 'Milton Casserole Set 3-Piece', 1299, 1799, 4.7, 22490, 'Sale', 'Stainless steel, airtight lid, keeps food hot 6+ hours.', 'https://m.media-amazon.com/images/I/81lP7z9k1NL._AC_SL1500_.jpg'),
+    p(43, 'home', 'Godrej 231L Refrigerator', 22990, 27990, 4.5, 8120, 'Sale', '5-star rated, frost-free, inverter compressor, 10-year warranty.', 'https://m.media-amazon.com/images/I/71Yw3KzQpKL._AC_SL1500_.jpg'),
+    p(44, 'home', 'Dyson V12 Detect Slim Vacuum', 44900, 54900, 4.8, 5430, 'Hot', '60-min runtime, HEPA filtration, laser dust detection, LCD screen.', 'https://m.media-amazon.com/images/I/61G7v2k6kFL._AC_SL1500_.jpg'),
+    p(45, 'home', 'Urban Ladder 3-Seater Sofa', 34999, 44999, 4.4, 2890, 'New', 'Hardwood frame, premium leatherette, removable seat cushions.', 'https://m.media-amazon.com/images/I/71zXz9k9RCL._AC_SL1500_.jpg'),
+    p(46, 'home', 'Bosch 7kg Washing Machine', 29990, 35990, 4.6, 6720, 'Best Seller', 'Fully-auto front load, EcoSilence motor, 15 wash programs.', 'https://m.media-amazon.com/images/I/71cL2Z7kYhL._AC_SL1500_.jpg'),
+    p(47, 'home', 'Butterfly 3-Burner Gas Stove', 4999, 6499, 4.5, 14230, 'Sale', 'Stainless steel top, brass burners, auto-ignition, spill-proof.', 'https://m.media-amazon.com/images/I/81P7Z9k7YdL._AC_SL1500_.jpg'),
+    p(48, 'home', 'Bombay Dyeing Bedsheet Set', 1299, 1799, 4.5, 17640, 'Best Seller', '200TC cotton, double bed, 2 pillow covers, machine washable.', 'https://m.media-amazon.com/images/I/81yX9k6ZlJL._AC_SL1500_.jpg'),
+    p(49, 'home', 'Pigeon Air Fryer 4.2L', 4499, 5999, 4.6, 12340, 'Hot', '4.2L, 360° rapid air tech, 7 preset programs, non-stick basket.', 'https://m.media-amazon.com/images/I/71QZ9k7yXUL._AC_SL1500_.jpg'),
+    p(50, 'home', 'Morphy Richards Espresso Machine', 7999, 10999, 4.7, 5210, 'Sale', '15-bar pump, steam wand for milk frothing, 1.5L water tank.', 'https://m.media-amazon.com/images/I/61lP9k7yZQL._AC_SL1500_.jpg'),
+    p(51, 'home', 'Scented Soy Candle Set 3 pcs', 999, 1499, 4.6, 8930, 'New', 'Lavender, Vanilla & Sandalwood, 40-hour burn time per candle.', 'https://m.media-amazon.com/images/I/81lP9k7Z1YL._AC_SL1500_.jpg'),
+    p(52, 'home', 'Havells Ceiling Fan 1200mm', 3199, 3999, 4.6, 11240, 'Best Seller', '400 RPM, BEE 5-star rated, powder-coated aluminium blades.', 'https://m.media-amazon.com/images/I/71kP9k7Z1YL._AC_SL1500_.jpg'),
+    p(53, 'home', 'IKEA Kallax 8-Cube Shelf Unit', 8999, 10999, 4.5, 9870, 'Sale', '8 compartments, horizontal or vertical use, flat-pack assembly.', 'https://m.media-amazon.com/images/I/71zP9k7Z1YL._AC_SL1500_.jpg'),
+    p(54, 'home', 'Decorative Cushion Covers Set of 5', 799, 1199, 4.4, 13870, 'Sale', '16×16" bohemian design, machine washable, zipper closure.', 'https://m.media-amazon.com/images/I/81kP9k7Z1YL._AC_SL1500_.jpg'),
+    p(55, 'sports', 'Nivia Yoga Mat Pro 6mm', 1299, 1799, 4.7, 16840, 'Best Seller', '6mm thick, non-slip TPE surface, moisture resistant, eco-friendly.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(56, 'sports', 'Adjustable Dumbbell Set 20kg', 3499, 4499, 4.6, 9240, 'Hot', 'Adjustable 2.5–20kg, chrome finish, ergonomic grip, storage rack.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(57, 'sports', 'Fitbit Charge 6', 14999, 17999, 4.5, 8120, 'New', 'ECG, SpO2, 7-day battery, built-in GPS, 40+ exercise modes.', 'https://m.media-amazon.com/images/I/61lZ9k7Z1YL._AC_UF1000,1000_QL80_.jpg'),
+    p(58, 'sports', 'Cosco Football Size 5', 899, 1299, 4.4, 21340, 'Sale', 'FIFA quality, TPU material, 32-panel, perfect for outdoor play.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(59, 'sports', 'Trek FX3 Hybrid Cycle', 47999, 54999, 4.8, 2840, 'New', 'Alpha Gold aluminium frame, hydraulic disc brakes, 24-speed.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(60, 'sports', 'Decathlon Swimming Goggles', 599, 899, 4.5, 13210, 'Sale', 'Anti-fog UV400 lens, silicone gasket, adjustable strap.', 'https://m.media-amazon.com/images/I/61lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(61, 'sports', 'Nivia Basketball Size 7', 2499, 3499, 4.4, 5430, 'Hot', 'Size 7, composite leather cover, rubber bladder, optimal bounce.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(62, 'sports', 'Reebok FloatRide Running Shoes', 5999, 7999, 4.5, 11230, 'Best Seller', 'FloatRide foam, breathable mesh upper, rubber outsole for grip.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_UX695_.jpg'),
+    p(63, 'sports', 'Resistance Bands Set 11pcs', 899, 1499, 4.6, 19870, 'Best Seller', '11 pieces, various resistance levels, handles, ankle straps.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(64, 'sports', 'Yonex Astrox 88D Badminton Racket', 9999, 12999, 4.8, 4320, 'Hot', 'High-modulus graphite, 85g, rotational generator, steep smash.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(65, 'sports', 'Spalding NBA Street Basketball', 1999, 2999, 4.5, 6780, 'Sale', 'Durable rubber cover, wide channel, butyl bladder, official NBA.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(66, 'sports', 'Aurion Treadmill T-900', 24999, 32999, 4.5, 3210, 'New', '2.5HP motor, 0–14 km/h, 12 preset programs, foldable, LCD.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(67, 'sports', 'Adidas Gym Bag Defender III', 2499, 3499, 4.5, 8430, 'Sale', '52L capacity, ventilated shoe pocket, water-resistant base.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(68, 'sports', 'MuscleBlaze Whey Protein 2kg', 2399, 3299, 4.6, 27640, 'Best Seller', '25g protein per serving, 5.5g BCAAs, banned-substance tested.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(69, 'beauty', "L'Oreal Revitalift HA Serum", 1299, 1699, 4.6, 14230, 'Best Seller', '1.5% hyaluronic acid, 72h hydration, anti-aging, dermatologist tested.', 'https://m.media-amazon.com/images/I/61lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(70, 'beauty', 'Maybelline Fit Me Foundation', 499, 699, 4.5, 28440, 'Hot', '24H oil control, SPF 18, 30 shades, micro-powder matte formula.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(71, 'beauty', 'Forest Essentials Hair Mask', 1495, 1995, 4.7, 6720, 'New', 'Brahmi & amla Ayurvedic formula, deep conditioning, frizz control.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(72, 'beauty', 'Wild Stone Code Perfume 100ml', 499, 699, 4.4, 19840, 'Sale', 'Fresh aquatic fragrance, 12-hour lasting, daily-wear signature.', 'https://m.media-amazon.com/images/I/61lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(73, 'beauty', 'Biotique SPF 30 Sunscreen 40g', 399, 549, 4.3, 11230, 'Sale', 'UVA/UVB broad-spectrum, non-greasy, all skin types, 40g tube.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(74, 'beauty', 'Philips Hair Dryer 1800W', 2199, 2999, 4.6, 8940, 'Hot', '1800W, ionizer, 3 heat & 2 speed settings, cool shot button.', 'https://m.media-amazon.com/images/I/81lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(75, 'beauty', 'Lakme Eyeconic Kajal', 249, 349, 4.7, 42310, 'Best Seller', 'Smudge-proof, water-resistant, 12h wear, Vitamin E enriched.', 'https://m.media-amazon.com/images/I/61lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(76, 'beauty', 'Nykaa Matte Lipstick Set 6 pcs', 799, 1199, 4.5, 16820, 'Sale', 'Long-lasting 8h formula, Vitamin E enriched, 6 bold shades.', 'https://m.media-amazon.com/images/I/71lZ9k7Z1YL._AC_SL1500_.jpg'),
+    p(77, 'books', 'Atomic Habits — James Clear', 399, 599, 4.9, 48240, 'Best Seller', 'Build good habits & break bad ones. #1 New York Times bestseller.', 'https://m.media-amazon.com/images/I/81wgcld4wxL._AC_UF1000,1000_QL80_.jpg'),
+    p(78, 'books', 'Rich Dad Poor Dad — Kiyosaki', 299, 450, 4.7, 36120, 'Best Seller', "What the rich teach their kids about money that the poor don't.", 'https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UF1000,1000_QL80_.jpg'),
+    p(79, 'books', 'The Psychology of Money — Housel', 349, 499, 4.8, 28430, 'Hot', 'Timeless lessons on wealth, greed, and happiness. A masterpiece.', 'https://m.media-amazon.com/images/I/71g2ednj0JL._AC_UF1000,1000_QL80_.jpg'),
+    p(80, 'books', 'Clean Code — Robert C. Martin', 699, 999, 4.8, 9840, 'Hot', 'Agile software craftsmanship — must-read for every developer.', 'https://m.media-amazon.com/images/I/41xShlnTZTL._AC_UF1000,1000_QL80_.jpg'),
+    p(81, 'books', 'Sapiens — Yuval Noah Harari', 499, 699, 4.8, 32110, 'Best Seller', 'A brief history of humankind. From the Stone Age to the 21st century.', 'https://m.media-amazon.com/images/I/713jIoMO3UL._AC_UF1000,1000_QL80_.jpg'),
+    p(82, 'books', 'Zero to One — Peter Thiel', 449, 599, 4.6, 14230, 'New', 'Notes on startups, or how to build the future. Essential for founders.', 'https://m.media-amazon.com/images/I/71m-MxdJ2WL._AC_UF1000,1000_QL80_.jpg'),
+]
+export const VALID_COUPONS = { SMART50: 50, SAVE20: 20, NEW10: 10, FIRST30: 30, FLAT15: 15 }
+export const formatPrice = (p) => `₹${Number(p).toLocaleString('en-IN')}`
+export const renderStars = (r) => { const f = Math.floor(r), h = r % 1 >= 0.5 ? 1 : 0; return '★'.repeat(f) + (h ? '½' : '') + '☆'.repeat(5 - f - h) }
+export const getDiscount = (price, orig) => orig && orig > price ? Math.round((1 - price / orig) * 100) : 0
+export const getSearchText = (p) =>
+    `${p.name} ${p.badge || ''} ${p.desc}`.toLowerCase()
+const CATEGORY_KEYWORDS = {
+    electronics: 'phone smartphone mobile laptop computer notebook tablet ipad watch smartwatch gadget device tech technology camera speaker bluetooth wireless headphone earphone earbuds monitor screen display gaming console playstation drone aerial tv television smart',
+    fashion: 'clothes clothing apparel outfit wear shoes sneakers trainers footwear shirt tshirt top formal casual kurta ethnic dress pants jeans trouser chinos shorts watch sunglasses glasses bag handbag purse wallet backpack polo sweatshirt hoodie blazer coat jacket',
+    home: 'furniture bed sofa couch lamp light fridge refrigerator washing machine washer fan appliance kitchen cookware stove induction oven fryer espresso coffee casserole bedsheet pillow cushion decor shelf rack candle vacuum cleaner',
+    sports: 'gym fitness yoga exercise workout training running jogging cycling swimming basketball football soccer cricket badminton tennis racket ball bat dumbbell weight resistance band treadmill bicycle bike protein supplement tracker wearable goggles',
+    beauty: 'skincare makeup cosmetics face cream lotion serum moisturizer sunscreen spf hair mask conditioner shampoo perfume fragrance cologne lipstick foundation kajal eyeliner eyeshadow mascara',
+    books: 'book reading novel fiction nonfiction self help business finance money investing leadership motivation productivity habit psychology startup entrepreneur',
+}
+export const getCategoryText = (p) => {
+    const extra = CATEGORY_KEYWORDS[p.cat] || ''
+    return `${p.name} ${p.cat} ${p.badge || ''} ${p.desc} ${extra}`.toLowerCase()
+}
+export const CAROUSEL_SLIDES = [
+    { title: 'Grand Sale — Up to 50% OFF!', subtitle: 'Electronics, Fashion, Home & more. Limited time!', badge1: '⚡ Flash Sale', badge2: '🔒 Secure', btn: 'Shop the Sale', href: '/electronics', cls: 'from-purple-600 via-violet-600 to-rose-500' },
+    { title: 'New Season Fashion is Here', subtitle: 'Trending styles, shoes, bags and accessories.', badge1: '🆕 New Arrivals', badge2: '🚚 Free Ship', btn: 'Explore Fashion', href: '/fashion', cls: 'from-orange-500 via-amber-500 to-yellow-400' },
+    { title: 'Level Up Your Fitness', subtitle: 'Premium sports gear and wellness products.', badge1: '💪 Sports', badge2: '⭐ Top Rated', btn: 'Shop Sports', href: '/sports', cls: 'from-slate-800 via-slate-700 to-blue-900' },
+    { title: "Bestselling Books You'll Love", subtitle: 'From Atomic Habits to Sapiens — invest in yourself.', badge1: '📚 Books', badge2: '💰 Best Prices', btn: 'Browse Books', href: '/books', cls: 'from-emerald-500 via-teal-500 to-cyan-500' },
+]
