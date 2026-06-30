@@ -1,10 +1,10 @@
 # ShopSmart E-Commerce Application 🛒✨
 
-An advanced, highly interactive modern e-commerce web application built with **React**, **Vite**, **Tailwind CSS**, and **Firebase**. ShopSmart features an integrated **AI Chatbot** powered by Google's Gemini 2.5 Flash model, multi-currency support, dark mode, dynamic cart & wishlist management, and modern UI components.
+An advanced, highly interactive modern e-commerce web application built with **React**, **Vite**, **Tailwind CSS**, and **Firebase**. ShopSmart features an integrated **AI Chatbot** powered by Google's Gemini 2.0 Flash model, multi-currency support, dark mode, dynamic cart & wishlist management, and modern UI components.
 
 ## 🌟 Key Features
 
-* **AI Shopping Assistant (ShopBot):** Integrated directly into the platform, leveraging the **Gemini 2.5 Flash API** to give users real-time answers, product recommendations, and comparisons dynamically.
+* **AI Shopping Assistant (ShopBot):** Integrated directly into the platform, leveraging the **Gemini 2.0 Flash API** to give users real-time answers, product recommendations, and comparisons dynamically.
 * **Smart Cart & Checkout System:** Flawless shopping cart operations with quantity managers, real-time total updates, applied discount code states, and responsive checkout forms.
 * **Product Comparison & Wishlist:** Fully functional ⚖️ Compare system alongside a dedicated ❤️ Wishlist page backed by Context APIs and local data persistence.
 * **Multi-Currency & Theme Support:** Dynamic currency conversions and a seamless Global Dark Mode / Light Mode toggle.
@@ -17,7 +17,7 @@ An advanced, highly interactive modern e-commerce web application built with **R
 * **Styling:** Tailwind CSS
 * **Icons:** Lucide React
 * **Backend Cloud Integration:** Firebase (Firestore / Authentication)
-* **AI Capabilities:** Google Generative AI (`gemini-2.5-flash`)
+* **AI Capabilities:** Google Generative AI (`gemini-2.0-flash`)
 
 ## 🚀 Getting Started
 

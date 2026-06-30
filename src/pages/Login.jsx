@@ -26,7 +26,7 @@ export default function Login() {
                     <h2 className="text-4xl font-extrabold mb-4">Welcome Back!</h2>
                     <p className="text-gray-400 text-lg mb-8">Login to access your orders, wishlist and exclusive deals.</p>
                     <div className="space-y-4 text-left">
-                        {['📦 Track all your orders in real-time', '❤️ Access your saved wishlist', '🏷️ Get exclusive member discounts', '🔒 Secure Firebase authentication'].map(f => (
+                        {['📦 Track all your orders in real-time', '❤️ Access your saved wishlist', '🏷️ Get exclusive member discounts', '🔒 Secure local authentication'].map(f => (
                             <div key={f} className="flex items-center gap-3 text-gray-300"><span>{f}</span></div>
                         ))}
                     </div>

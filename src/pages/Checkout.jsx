@@ -4,8 +4,7 @@ import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { useNotification } from '../components/Notification'
 import { useCurrency } from '../context/CurrencyContext'
-import { db } from '../firebase/config'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { api } from '../lib/api'
 import usePageTitle from '../hooks/usePageTitle'
 import { Smartphone, CreditCard, Landmark, Banknote, PartyPopper, CheckCircle, ShoppingBag, Loader2, PackageOpen } from 'lucide-react'
 const PAYMENT_METHODS = [
@@ -39,18 +38,19 @@ export default function Checkout() {
             total: finalTotal, shipping, tax, subtotal, discount: discountAmt, coupon: coupon?.code || null,
             address: form,
             paymentMethod: payMethod,
-            userId: user?.uid || user?.email || 'guest',
+            userId: user?.id || user?.email || 'guest',
             status: 'Confirmed',
         }
         try {
-            if (db) {
-                await addDoc(collection(db, 'orders'), { ...order, createdAt: serverTimestamp() })
+            if (user) {
+                await api.createOrder(order)
             } else {
                 const orders = JSON.parse(localStorage.getItem('orders') || '[]')
                 orders.unshift({ ...order, createdAt: new Date().toISOString() })
                 localStorage.setItem('orders', JSON.stringify(orders))
             }
         } catch (e) {
+            console.error('Order placement error:', e)
             const orders = JSON.parse(localStorage.getItem('orders') || '[]')
             orders.unshift({ ...order, createdAt: new Date().toISOString() })
             localStorage.setItem('orders', JSON.stringify(orders))
@@ -80,7 +80,7 @@ export default function Checkout() {
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-6 mb-6 text-left space-y-3">
                     <div className="flex justify-between items-center">
                         <span className="text-gray-500 text-sm">Order Total</span>
-                        <span className="font-extrabold text-amber-500 text-xl">{formatPrice(total)}</span>
+                        <span className="font-extrabold text-amber-500 text-xl">{formatPrice(finalTotal)}</span>
                     </div>
                     <div className="flex justify-between items-center">
                         <span className="text-gray-500 text-sm">Payment</span>

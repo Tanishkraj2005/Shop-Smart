@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { formatPrice } from '../data/products'
-import { db } from '../firebase/config'
-import { collection, getDocs, query, where, orderBy } from 'firebase/firestore'
+import { api } from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 import usePageTitle from '../hooks/usePageTitle'
 const STATUS_STYLES = {
@@ -20,24 +19,9 @@ export default function Orders() {
     useEffect(() => {
         const load = async () => {
             try {
-                if (db && user?.uid) {
-                    const [snapUid, snapEmail] = await Promise.all([
-                        getDocs(query(collection(db, 'orders'), where('userId', '==', user.uid))),
-                        getDocs(query(collection(db, 'orders'), where('userId', '==', user.email))),
-                    ])
-                    const fromUid = snapUid.docs.map(d => ({ ...d.data(), _docId: d.id }))
-                    const fromEmail = snapEmail.docs.map(d => ({ ...d.data(), _docId: d.id }))
-                    const seen = new Set()
-                    const merged = [...fromUid, ...fromEmail].filter(o => {
-                        if (seen.has(o._docId)) return false
-                        seen.add(o._docId); return true
-                    })
-                    merged.sort((a, b) => {
-                        const ta = a.createdAt?.toMillis?.() || 0
-                        const tb = b.createdAt?.toMillis?.() || 0
-                        return tb - ta
-                    })
-                    setOrders(merged)
+                if (user) {
+                    const data = await api.getOrders()
+                    setOrders(data)
                 } else {
                     const local = JSON.parse(localStorage.getItem('orders') || '[]')
                     setOrders(local)
@@ -81,12 +65,12 @@ export default function Orders() {
                     <div className="space-y-4">
                         {orders.map((order, idx) => {
                             const status = order.status || 'Confirmed'
-                            const date = order.createdAt?.toDate?.()?.toLocaleDateString('en-IN', {
+                            const date = new Date(order.created_at || order.createdAt || Date.now()).toLocaleDateString('en-IN', {
                                 day: 'numeric', month: 'short', year: 'numeric'
-                            }) || new Date().toLocaleDateString('en-IN')
-                            const orderId = order.id || order._docId || ('SS' + (1001 + idx))
+                            })
+                            const orderId = order.id || ('SS' + (1001 + idx))
                             return (
-                                <div key={order._docId || idx} className="card p-6">
+                                <div key={order.id || idx} className="card p-6">
                                     <div className="flex justify-between items-start mb-5 flex-wrap gap-2">
                                         <div>
                                             <p className="font-extrabold text-gray-900 dark:text-white text-sm">

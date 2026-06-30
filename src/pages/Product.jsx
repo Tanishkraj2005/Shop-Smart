@@ -6,9 +6,9 @@ import { useWishlist } from '../context/WishlistContext'
 import { useNotification } from '../components/Notification'
 import { useCurrency } from '../context/CurrencyContext'
 import ProductCard from '../components/ProductCard'
-import { db } from '../firebase/config'
-import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp } from 'firebase/firestore'
+import { api } from '../lib/api'
 import usePageTitle from '../hooks/usePageTitle'
+
 function ReviewForm({ productId, onSubmit }) {
     const [rating, setRating] = useState(0)
     const [hover, setHover] = useState(0)
@@ -38,6 +38,7 @@ function ReviewForm({ productId, onSubmit }) {
         </div>
     )
 }
+
 export default function Product() {
     const { slug } = useParams()
     const product = products.find(p => toSlug(p.name) === slug)
@@ -54,25 +55,27 @@ export default function Product() {
     const relatedProducts = products.filter(p => p.cat === product?.cat && p.id !== product?.id).slice(0, 4)
     const disc = getDiscount(product?.price, product?.orig)
     const wished = isWishlisted(product?.id)
+
     useEffect(() => {
         if (!product) return
         setMainImg(product.img)
         const loadReviews = async () => {
             try {
-                if (db) {
-                    const q = query(collection(db, 'reviews'), where('productId', '==', product.id), orderBy('createdAt', 'desc'))
-                    const snap = await getDocs(q)
-                    const r = snap.docs.map(d => d.data())
-                    setReviews(r.length ? r : defaultReviews())
-                } else setReviews(JSON.parse(localStorage.getItem(`reviews_${product.id}`)) || defaultReviews())
-            } catch { setReviews(defaultReviews()) }
+                const fetchedReviews = await api.getReviews(product.id)
+                setReviews(fetchedReviews.length ? fetchedReviews : defaultReviews())
+            } catch {
+                const stored = JSON.parse(localStorage.getItem(`reviews_${product.id}`))
+                setReviews(stored || defaultReviews())
+            }
         }
         loadReviews()
     }, [product?.id])
+
     const defaultReviews = () => ([
         { name: 'Priya Sharma', rating: 5, text: 'Absolutely love it! Great quality and fast delivery.', date: '15 Jan 2025' },
         { name: 'Rahul Mehta', rating: 4, text: 'Good product, exactly as described. Would recommend!', date: '10 Jan 2025' },
     ])
+
     const handleAddToCart = () => {
         if (!product) return
         setAdding(true)
@@ -80,18 +83,26 @@ export default function Product() {
         notify(`${product.name} added to cart! 🛒`)
         setTimeout(() => setAdding(false), 1000)
     }
+
     const handleReviewSubmit = async (review) => {
-        const r = { ...review, productId: product.id }
-        setReviews(prev => [review, ...prev])
         try {
-            if (db) await addDoc(collection(db, 'reviews'), { ...r, createdAt: serverTimestamp() })
-            else { const k = `reviews_${product.id}`; const prev = JSON.parse(localStorage.getItem(k) || '[]'); localStorage.setItem(k, JSON.stringify([r, ...prev])) }
-        } catch (e) { console.warn(e) }
+            const addedReview = await api.postReview(product.id, review)
+            setReviews(prev => [addedReview, ...prev])
+        } catch (e) {
+            console.warn('API review failed, saving locally', e)
+            const r = { ...review, productId: product.id }
+            setReviews(prev => [r, ...prev])
+            const k = `reviews_${product.id}`
+            const prevStorage = JSON.parse(localStorage.getItem(k) || '[]')
+            localStorage.setItem(k, JSON.stringify([r, ...prevStorage]))
+        }
     }
+
     const copyLink = () => {
         navigator.clipboard.writeText(window.location.href)
         notify('Link copied! 🔗')
     }
+
     if (!product) return (
         <div className="min-h-screen flex items-center justify-center flex-col gap-4">
             <div className="text-6xl">😕</div>
@@ -99,7 +110,9 @@ export default function Product() {
             <Link to="/" className="btn-primary px-6 py-3 rounded-xl">← Back to Home</Link>
         </div>
     )
+
     const avgRating = reviews.length ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1) : product.rating
+
     return (
         <div className="min-h-screen dark:bg-gray-950 pb-24 md:pb-8">
             <div className="max-w-7xl mx-auto px-4 py-8">

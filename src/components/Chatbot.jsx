@@ -29,7 +29,7 @@ export default function Chatbot() {
     ])
     const [input, setInput] = useState('')
     const [loading, setLoading] = useState(false)
-    const [apiKey, setApiKey] = useState(localStorage.getItem('geminiKey') || 'AIzaSyAre95drZvKDOcJ8smI-uFlk56dIFc61F4')
+    const [apiKey, setApiKey] = useState(localStorage.getItem('geminiKey') || '')
     const [showKeyInput, setShowKeyInput] = useState(false)
     const [unread, setUnread] = useState(0)
     const bottomRef = useRef()
@@ -61,7 +61,7 @@ export default function Chatbot() {
                 parts: [{ text: m.text }]
             }))
             const res = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
